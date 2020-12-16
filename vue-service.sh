@@ -1,5 +1,5 @@
 #!/bin/bash
-WORK_PATH = '/usr/local/server/vue-demo-service'
+WORK_PATH='/usr/local/server/vue-demo-service'
 cd $WORK_PATH
 echo '先清除老代码'
 git reset --hard origin/master
