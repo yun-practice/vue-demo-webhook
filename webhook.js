@@ -11,6 +11,6 @@ let server = http.createServer((req, res) => {
     }
 });
 
-server.listen(4000, () => {
-    console.log('服务已经在4000端口上启动了');
+server.listen(5000, () => {
+    console.log('服务已经在5000端口上启动了');
 });
