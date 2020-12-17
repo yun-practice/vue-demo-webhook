@@ -1,6 +1,4 @@
-const { sign } = require('crypto');
 let http = require('http');
-
 let crypto = require('crypto');
 let SECRET = '123456'; // 跟github webhooks中的秘钥一样
 function sign(body) {
