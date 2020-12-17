@@ -12,9 +12,11 @@ let server = http.createServer((req, res) => {
     if (req.method == 'post' && req.url == '/webhook') {
         let buffers = [];
         req.on('data', (buffer) => {
+            console.log('data');
             buffers.push(buffer);
         });
         req.on('end', (buffer) => {
+            console.log('end');
             let body = Buffer.concat(buffers);
             console.log('body===>: ', body);
             let event = req.headers['X-github-event']; // event = push
