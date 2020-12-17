@@ -16,9 +16,7 @@ let server = http.createServer((req, res) => {
         });
         req.on('end', (buffer) => {
             let body = Buffer.concat(buffers);
-            console.log('body===>: ', body);
             let event = req.headers['x-github-event']; // event = push
-            console.log('event===>', event);
             // github请求过来的时候,要传递请求体body,另外还会传一个signature，你需要验证签名对不对
             let signature = req.headers['x-hub-signature'];
             if (signature !== sign(body)) {
@@ -31,6 +29,7 @@ let server = http.createServer((req, res) => {
             if (event == 'push') {
                 // 开始部署
                 let payload = JSON.parse(body);
+                // vue-service 推到github, 上面是vue-demo-service, 所以这里是vue-demo-service
                 console.log('payload ===> ', payload.repository.name);
                 // 为了不堵塞当前的进程，开启一个子进程,跑一段脚本，执行仓库下的.sh(如vue-app.sh or vue-service.sh)
                 let child = spawn('sh', [`./${payload.repository.name}.sh`]);
