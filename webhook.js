@@ -4,7 +4,7 @@ let { spawn } = require('child_process'); // 开启一个子进程
 let SECRET = '123456'; // 跟github webhooks中的秘钥一样
 function sign(body) {
     // crypto.createHmac(名字, 秘钥), update()里面放入你要加密的文本, digest()里面放入16进制字符串 hex编码
-    return `sha256=` + crypto.createHmac('sha256', SECRET).update(body).digest('hex');
+    return `sha1=` + crypto.createHmac('sha1', SECRET).update(body).digest('hex');
 }
 
 let server = http.createServer((req, res) => {
@@ -16,7 +16,9 @@ let server = http.createServer((req, res) => {
         });
         req.on('end', (buffer) => {
             let body = Buffer.concat(buffers);
+            console.log('body===>: ', body);
             let event = req.headers['X-github-event']; // event = push
+            console.log('event===>', event);
             // github请求过来的时候,要传递请求体body,另外还会传一个signature，你需要验证签名对不对
             let signature = req.headers['x-hub-signature'];
             if (signature !== sign(body)) {
